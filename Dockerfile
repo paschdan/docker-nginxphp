@@ -9,15 +9,20 @@ RUN sed -i 's/user  nginx/user  www-data/g' /etc/nginx/nginx.conf
 # Force PHP to log to nginx
 RUN echo "catch_workers_output = yes" >> /etc/php5/fpm/php-fpm.conf
 
-COPY docker /
-COPY . /var/www
 
 ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
-RUN chmod +x /usr/local/bin/composer
+RUN chmod a+rwx /usr/local/bin/composer
 
-RUN chown -R www-data:www-data /var/www
+COPY docker /
+ONBUILD COPY . /var/www
 
-WORKDIR /var/www
+ONBUILD WORKDIR /var/www
+
+ONBUILD ENV SYMFONY_ENV prod
+
+ONBUILD RUN composer install -n
+
+ONBUILD RUN chown -R www-data:www-data /var/www
 
 # Enable php by default
 CMD service php5-fpm start && nginx -g "daemon off;"

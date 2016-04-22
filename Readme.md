@@ -1,3 +1,7 @@
-# Docker Image with nginx and php-fpm
+# Docker Image with nginx and php-fpm for symfony
 
-webroot is defaulting to /var/www/web
+For using this with a symfony Project simply add a Dockerfile to your project, with following content
+
+``` 
+FROM paschdan/nginxphp:symfony
+```
