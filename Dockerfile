@@ -20,8 +20,6 @@ ONBUILD WORKDIR /var/www
 
 ONBUILD ENV SYMFONY_ENV prod
 
-ONBUILD RUN composer install -n
-
 ONBUILD RUN chown -R www-data:www-data /var/www
 
 # Enable php by default

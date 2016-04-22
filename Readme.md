@@ -4,4 +4,8 @@ For using this with a symfony Project simply add a Dockerfile to your project, w
 
 ``` 
 FROM paschdan/nginxphp:symfony
+
+RUN composer install -n
 ```
+
+
